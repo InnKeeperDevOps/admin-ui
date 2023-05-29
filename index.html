@@ -1,25 +1,35 @@
 <html>
   <head>
     <title>InnKeeper Admin Panel</title>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script type="text/javascript">
-       var sock = new SockJS('http://localhost:8081/ws');
-       sock.onopen = function() {
-           console.log('open');
-           sock.send('test');
-       };
-
-       sock.onmessage = function(e) {
-           console.log('message', e.data);
-           sock.close();
-       };
-
-       sock.onclose = function() {
-           console.log('close');
-       };
-      
-      
+    <script type="importmap">
+      {
+        "imports": {
+          "@stomp/stompjs": "https://ga.jspm.io/npm:@stomp/stompjs@7.0.0/esm6/index.js"
+        }
+      }
     </script>
+
+    <!-- ES Module Shims: Import maps polyfill for modules browsers without import maps support (all except Chrome 89+) -->
+    <script
+      async
+      src="https://ga.jspm.io/npm:es-module-shims@1.5.1/dist/es-module-shims.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module">
+  import { Client } from '@stomp/stompjs';
+
+  const client = new Client({
+    brokerURL: 'ws://localhost:8081/ws',
+    onConnect: () => {
+      client.subscribe('/topic/test01', message =>
+        console.log(`Received: ${message.body}`)
+      );
+      client.publish({ destination: '/topic/test01', body: 'First Message' });
+    },
+  });
+
+  client.activate();
+</script>
   </head>
   <body>
     <form action="javascript: send()">
