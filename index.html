@@ -3,7 +3,7 @@
     <title>InnKeeper Admin Panel</title>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script type="text/javascript">
-       var sock = new SockJS('http://localhost:8081');
+       var sock = new SockJS('http://localhost:8081/ws');
        sock.onopen = function() {
            console.log('open');
            sock.send('test');
