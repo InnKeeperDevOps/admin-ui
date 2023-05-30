@@ -29,10 +29,6 @@
   });
 
   client.activate();
-  function send(){
-    alert(document.getElementById("topic").value);
-    client.publish({ destination: document.getElementById("topic").value, body: document.getElementById("message").value }); 
-  }
 </script>
   </head>
   <body>
