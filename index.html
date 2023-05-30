@@ -29,12 +29,16 @@
   });
 
   client.activate();
+  function send(){
+    alert(document.getElementById("topic").value);
+    client.publish({ destination: document.getElementById("topic").value, body: document.getElementById("message").value }); 
+  }
 </script>
   </head>
   <body>
     <form action="javascript: send()">
       <input type="text" id="message" />
-      <input type="text" id="topic" />
+      <input type="text" id="topic" value="/api/test" />
     
     </form>
     Admin Panel pull from repo.
