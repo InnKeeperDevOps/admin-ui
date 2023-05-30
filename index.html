@@ -16,8 +16,9 @@
   crossorigin="anonymous"
 ></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script type="text/javascript">
-      const client = new StompJs.Client({
+    <script  type="module">
+  import { Client } from '@stomp/stompjs';
+      const client = new Client({
   brokerURL: 'ws://localhost:8081/ws',
   debug: function (str) {
     console.log(str);
