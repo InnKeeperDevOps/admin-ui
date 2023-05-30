@@ -24,7 +24,7 @@
 
       function send() {
        stompClient.send("/api/command", {}, JSON.stringify({
-        'name' : ""
+        'uri' : "/pods/"
        }));
       }
     </script>
