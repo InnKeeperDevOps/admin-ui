@@ -5,7 +5,7 @@
     <script  type="text/javascript">
       var stompClient;
       function connect() {
-          stompClient = Stomp.client("ws://localhost:8081/ws");
+          stompClient = Stomp.client("ws://localhost:8081/stomp");
           stompClient.connect({}, function (frame) {
               console.log('Connected: ' + frame);
               stompClient.subscribe('/client/command', function (greeting) {
