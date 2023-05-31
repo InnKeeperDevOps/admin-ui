@@ -11,6 +11,12 @@
               stompClient.subscribe('/client/command', function (greeting) {
                   alert(JSON.parse(greeting.body).content);
               });
+              fetch('/ws/token')
+                .then(response => response.text()) // This converts the response body to a string
+                .then(data => {
+                  // Use the string data here
+                  stompClient.send("/api/command", {}, data);
+                });
           });
       }
 
