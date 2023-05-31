@@ -14,7 +14,7 @@
                   // Use the string data here
                   stompClient.send("/api/connect", {}, JSON.stringify(data));
                   stompClient.subscribe('/client/command', function (greeting) {
-                      alert(JSON.parse(greeting.body));
+                      console.log(JSON.parse(greeting.body));
                   });
                 });
           });
