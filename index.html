@@ -8,14 +8,14 @@
           stompClient = Stomp.client("ws://localhost:8081/stomp");
           stompClient.connect({}, function (frame) {
               console.log('Connected: ' + frame);
-              stompClient.subscribe('/client/command', function (greeting) {
-                  alert(JSON.parse(greeting.body));
-              });
               fetch('/ws/token')
-                .then(response => response.text()) // This converts the response body to a string
+                .then(response => response.json()) // This converts the response body to a string
                 .then(data => {
                   // Use the string data here
-                  stompClient.send("/api/connect", {}, data);
+                  stompClient.send("/api/connect", {}, JSON.stringify(data));
+                  stompClient.subscribe('/user/'+data[1]+'/client/command', function (greeting) {
+                      alert(JSON.parse(greeting.body));
+                  });
                 });
           });
       }
