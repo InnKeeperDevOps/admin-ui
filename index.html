@@ -9,7 +9,7 @@
           stompClient.connect({}, function (frame) {
               console.log('Connected: ' + frame);
               stompClient.subscribe('/client/command', function (greeting) {
-                  alert(JSON.parse(greeting.body).content);
+                  alert(JSON.parse(greeting.body));
               });
               fetch('/ws/token')
                 .then(response => response.text()) // This converts the response body to a string
