@@ -15,7 +15,7 @@
                   stompClient.send("/api/connect", {}, JSON.stringify(data));
                 });
               stompClient.subscribe('/user/client/command', function (greeting) {
-                document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body),2);
+                document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
               });
           });
           
@@ -47,6 +47,6 @@
     <textarea id="body"></textarea><br/>
     <input type="button" onclick="send();" value="send"/>
     <br/><br/><br/>
-    <textarea id="response"></textarea>
+    <textarea id="response" height="400" width="800"></textarea>
   </body>
 </html>
