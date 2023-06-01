@@ -15,7 +15,7 @@
                   stompClient.send("/api/connect", {}, JSON.stringify(data));
                 });
               stompClient.subscribe('/user/client/command', function (greeting) {
-                console.log(JSON.parse(greeting.body));
+                document.getElementById("response").value=greeting.body;
               });
           });
           
@@ -31,8 +31,8 @@
 
       function send() {
        stompClient.send("/api/command", {}, JSON.stringify({
-        'uri': document.getElementById("uri").val,
-        'body': document.getElementById("body").val
+        'uri': document.getElementById("uri").value,
+        'body': document.getElementById("body").value,
         'type': "get",
        }));
       }
@@ -46,5 +46,7 @@
     <input type="text" id="uri" value="/pod/"><br/>
     <textarea id="body"></textarea><br/>
     <input type="button" onclick="send();" value="send"/>
+    <br/><br/><br/>
+    <textarea id="response"></textarea>
   </body>
 </html>
