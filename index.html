@@ -15,7 +15,7 @@
                   stompClient.send("/api/connect", {}, JSON.stringify(data));
                 });
               stompClient.subscribe('/user/client/command', function (greeting) {
-                document.getElementById("response").value=greeting.body;
+                document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body),2);
               });
           });
           
