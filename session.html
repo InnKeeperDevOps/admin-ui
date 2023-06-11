@@ -19,11 +19,10 @@
                 });
               
               stompClient.subscribe('/user/client/command/session/send', function (msg) {
-                console.log(msg);
                 document.getElementById("response").value=msg.body;
               });
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
-                document.getElementById("body").value=`["${msg.body}", "ls"]`;
+                document.getElementById("body").value=`ls`;
                 id = msg.body;
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   document.getElementById("response").value=document.getElementById("response").value+msg.body;
@@ -46,7 +45,7 @@
       }
 
       function send() {
-       stompClient.send("/api/command/session/send", {}, document.getElementById("body").value);
+       stompClient.send("/api/command/session/send", {}, JSON.stringify([id, document.getElementById("body").value]));
       }
       function sendCTRLC() {
        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
@@ -59,12 +58,12 @@
     <input type="button" onclick="connect();" value="connect"/>
     <br/><br/><br/>
     <input type="button" onClick="sendCTRLC();" value="CTRLC"/>
+    <br/><br/><br/>
+    <textarea id="response" style="height:700px;width:900px;"></textarea>
     <br/>
     <form action="javascript: send();">
       <input type="text" id="body" style="width:600px;"><br/>
       <input type="submit" value="send"/>
     </form>
-    <br/><br/><br/>
-    <textarea id="response" style="height:700px;width:900px;"></textarea>
   </body>
 </html>
