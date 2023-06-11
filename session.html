@@ -47,15 +47,25 @@
       function send() {
        stompClient.send("/api/command/session/send", {}, document.getElementById("body").value);
       }
+      function sendCode() {
+       stompClient.send("/api/command/session/send_code", {}, document.getElementById("body").value);
+      }
     </script>
   </head>
   <body>
     Admin Panel pull from repo.
     <br/>
     <input type="button" onclick="connect();" value="connect"/>
-    <br/><br/>
-    <textarea id="body" style="height:100px;width:400px;"></textarea><br/>
-    <input type="button" onclick="send();" value="send"/>
+    <br/>
+    <form action="javascript: sendCode();">
+      <input type="text" id="body" style="width:600px;"><br/>
+      <input type="submit" value="sendCode"/>
+    </form>
+    <br/>
+    <form action="javascript: send();">
+      <input type="text" id="body" style="width:600px;"><br/>
+      <input type="submit" value="send"/>
+    </form>
     <br/><br/><br/>
     <textarea id="response" style="height:700px;width:900px;"></textarea>
   </body>
