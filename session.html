@@ -38,6 +38,7 @@
                 resize();
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   term.write(msg.body);
+                  stompClient.send("/api/command/session/send_next", {}, id);
                 });
               });
               stompClient.subscribe('/user/client/connected', function (msg) {
