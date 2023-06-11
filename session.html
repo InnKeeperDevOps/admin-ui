@@ -48,7 +48,7 @@
        stompClient.send("/api/command/session/send", {}, document.getElementById("body").value);
       }
       function sendCode() {
-       stompClient.send("/api/command/session/send_code", {}, document.getElementById("body").value);
+       stompClient.send("/api/command/session/send_code", {}, document.getElementById("codeBody").value);
       }
     </script>
   </head>
@@ -58,7 +58,7 @@
     <input type="button" onclick="connect();" value="connect"/>
     <br/>
     <form action="javascript: sendCode();">
-      <input type="text" id="body" style="width:600px;"><br/>
+      <input type="text" id="codeBody" style="width:600px;"><br/>
       <input type="submit" value="sendCode"/>
     </form>
     <br/>
