@@ -24,6 +24,7 @@
               });
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
                 document.getElementById("body").value=`["${msg.body}", "ls"]`;
+                id = msg.body;
                 document.getElementById("codeBody").value=`{"uuid":"${msg.body}","aChar":""}`;
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   document.getElementById("response").value=document.getElementById("response").value+msg.body;
@@ -48,8 +49,8 @@
       function send() {
        stompClient.send("/api/command/session/send", {}, document.getElementById("body").value);
       }
-      function sendCode() {
-       stompClient.send("/api/command/session/send_code", {}, document.getElementById("codeBody").value);
+      function sendCTRLC() {
+       stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
       }
     </script>
   </head>
@@ -58,10 +59,7 @@
     <br/>
     <input type="button" onclick="connect();" value="connect"/>
     <br/><br/><br/>
-    <form action="javascript: sendCode();">
-      <input type="text" id="codeBody" style="width:600px;"><br/>
-      <input type="submit" value="sendCode"/>
-    </form>
+    <input type="button" onClick="sendCTRLC();" value="CTRLC"/>
     <br/>
     <form action="javascript: send();">
       <input type="text" id="body" style="width:600px;"><br/>
