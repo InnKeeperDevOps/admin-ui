@@ -24,7 +24,7 @@
                 document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
               });
               stompClient.subscribe('/user/client/connected', function (greeting) {
-                stompClient.send("/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-n67s5"]));
+                stompClient.send("/api/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-n67s5"]));
               });
           });
           
@@ -39,7 +39,7 @@
       }
 
       function send() {
-       stompClient.send("/command/session/send", {}, document.getElementById("body").value);
+       stompClient.send("/api/command/session/send", {}, document.getElementById("body").value);
       }
     </script>
   </head>
