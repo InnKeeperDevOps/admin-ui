@@ -25,7 +25,7 @@
                 document.getElementById("response").innerHTML=msg.body;
               });
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
-                document.getElementById("body").value=`ls`;
+                document.getElementById("body").value="";
                 id = msg.body;
                 term = new Terminal();
                 term.open(document.getElementById('response'));
@@ -51,6 +51,7 @@
 
       function send() {
        stompClient.send("/api/command/session/send", {}, JSON.stringify([id, document.getElementById("body").value]));
+        document.getElementById("body").value="";
       }
       function sendCTRLC() {
        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
