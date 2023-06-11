@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>InnKeeper Admin Panel</title>
-    <script src="/ui/ansi_up.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ansi-to-html/0.7.2/ansi_to_html.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script  type="text/javascript">
@@ -28,9 +28,9 @@
                 id = msg.body;
                 consoleLog = "";
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  var ansi_up = new AnsiUp();
+                  var convert = new Convert();
                   consoleLog+=msg.body;
-                  document.getElementById("response").innerHTML=ansi_up.ansi_to_html(consoleLog);
+                  document.getElementById("response").innerHTML=convert.toHtml(consoleLog);
                 });
                 
               });
