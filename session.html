@@ -40,6 +40,7 @@
                   term.write(msg.body);
                   stompClient.send("/api/command/session/send_next", {}, id);
                 });
+                stompClient.send("/api/command/session/send_next", {}, id);
               });
               stompClient.subscribe('/user/client/connected', function (msg) {
                 stompClient.send("/api/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-stptl"]));
