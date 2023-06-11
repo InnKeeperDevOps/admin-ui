@@ -27,7 +27,7 @@
                 document.getElementById("body").value=`ls`;
                 id = msg.body;
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  var ansi_up = new AnsiUp;
+                  var ansi_up = new AnsiUp();
                   document.getElementById("response").innerHTML=document.getElementById("response").innerHTML+ansi_up.ansi_to_html(msg.body);
                 });
                 
