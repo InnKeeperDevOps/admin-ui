@@ -9,10 +9,6 @@
       var stompClient;
       var id; 
       var term;
-      (function() {
-        term = new Terminal();
-        term.open(document.getElementById('response'));
-      })();
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
@@ -31,6 +27,8 @@
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
                 document.getElementById("body").value=`ls`;
                 id = msg.body;
+                term = new Terminal();
+                term.open(document.getElementById('response'));
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   term.write(msg.body)
                 });
