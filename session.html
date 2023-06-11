@@ -1,11 +1,13 @@
 <html>
   <head>
     <title>InnKeeper Admin Panel</title>
+    <script src="https://raw.githubusercontent.com/drudru/ansi_up/master/ansi_up.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script  type="text/javascript">
       var stompClient;
       var id;
+      var ansi_up = new AnsiUp;
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
@@ -19,13 +21,13 @@
                 });
               
               stompClient.subscribe('/user/client/command/session/send', function (msg) {
-                document.getElementById("response").value=msg.body;
+                document.getElementById("response").innerHTML=msg.body;
               });
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
                 document.getElementById("body").value=`ls`;
                 id = msg.body;
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  document.getElementById("response").value=document.getElementById("response").value+msg.body;
+                  document.getElementById("response").innerHTML=document.getElementById("response").innerHTML+ansi_up.ansi_to_html(msg.body);
                 });
                 
               });
@@ -51,6 +53,7 @@
        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
       }
     </script>
+    
   </head>
   <body>
     Admin Panel pull from repo.
@@ -59,7 +62,7 @@
     <br/><br/><br/>
     <input type="button" onClick="sendCTRLC();" value="CTRLC"/>
     <br/><br/><br/>
-    <textarea id="response" style="height:700px;width:900px;"></textarea>
+    <div id="response" style="height:700px;width:900px;"></div>
     <br/>
     <form action="javascript: send();">
       <input type="text" id="body" style="width:600px;"><br/>
