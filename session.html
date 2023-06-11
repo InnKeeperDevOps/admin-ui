@@ -16,12 +16,15 @@
                   // Use the string data here
                   stompClient.send("/api/connect", {}, JSON.stringify(data));
                 });
-              stompClient.send("/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-n67s5"]));
+              
               stompClient.subscribe('/user/client/command/session/send', function (greeting) {
                 document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
               });
               stompClient.subscribe('/user/client/command/session/create', function (greeting) {
                 document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
+              });
+              stompClient.subscribe('/user/client/connected', function (greeting) {
+                stompClient.send("/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-n67s5"]));
               });
           });
           
