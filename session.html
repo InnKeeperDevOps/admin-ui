@@ -25,7 +25,6 @@
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
                 document.getElementById("body").value=`["${msg.body}", "ls"]`;
                 id = msg.body;
-                document.getElementById("codeBody").value=`{"uuid":"${msg.body}","aChar":""}`;
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   document.getElementById("response").value=document.getElementById("response").value+msg.body;
                 });
