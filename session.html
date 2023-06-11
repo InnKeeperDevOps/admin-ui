@@ -29,7 +29,7 @@
                 document.getElementById("body").value="";
                 id = msg.body;
                 term = new Terminal();
-                term.loadAddon(new WebglAddon());
+                term.loadAddon(new window.WebglAddon.WebglAddon());
                 term.open(document.getElementById('response'));
                 resize();
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
