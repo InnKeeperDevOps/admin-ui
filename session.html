@@ -8,10 +8,12 @@
     <script  type="text/javascript">
       var stompClient;
       var id; 
-      var term = new Terminal();
-      term.open(document.getElementById('response'));
+      var term;
+      (function() {
+        term = new Terminal();
+        term.open(document.getElementById('response'));
+      })();
       function connect() {
-          
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
           stompClient.connect({}, function (frame) {
