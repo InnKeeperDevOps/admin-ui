@@ -36,7 +36,7 @@
                 term.open(document.getElementById('response'));
                 resize();
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  term.writeln(msg.body);
+                  term.write(msg.body);
                 });
               });
               stompClient.subscribe('/user/client/connected', function (msg) {
