@@ -31,7 +31,7 @@
                 term.open(document.getElementById('response'));
                 resize();
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  term.write(msg.body)
+                  term.write(msg.body);
                 });
               });
               stompClient.subscribe('/user/client/connected', function (msg) {
@@ -68,10 +68,10 @@
     Admin Panel pull from repo.
     <br/>
     <input type="button" onclick="connect();" value="connect"/>
-    <br/><input type="text" id="cols"  /> <input type="text" id="rows" /><br/><br/><br/>
+    <br/><input type="text" value="150" id="cols"  /> <input type="text" id="rows" value=25 /><br/><br/><br/>
     <input type="button" onClick="sendCTRLC();" value="CTRLC"/> <input type="button" onClick="resize();" value="Resize"/>
     <br/><br/><br/>
-    <div id="response" style="height:700px;width:1000px;"></div>
+    <div id="response" style="height:700px;width:1200px;"></div>
     <br/>
     <form action="javascript: send();">
       <input type="text" id="body" style="width:600px;"><br/>
