@@ -18,10 +18,10 @@
                 });
               
               stompClient.subscribe('/user/client/command/session/send', function (greeting) {
-                document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
+                document.getElementById("response").value=greeting.body;
               });
               stompClient.subscribe('/user/client/command/session/create', function (greeting) {
-                document.getElementById("response").value=JSON.stringify(JSON.parse(greeting.body), null, 2);
+                document.getElementById("response").value=greeting.body;
               });
               stompClient.subscribe('/user/client/connected', function (greeting) {
                 stompClient.send("/api/command/session/create", {}, JSON.stringify(["innkeeper","example-site-6875f5bbf5-n67s5"]));
