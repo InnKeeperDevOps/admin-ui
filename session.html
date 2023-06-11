@@ -30,7 +30,8 @@
                 id = msg.body;
                 term = new Terminal({
                   cursorBlink: true,
-                  allowProposedApi: true
+                  allowProposedApi: true,
+                  disableStdin: false
                 });
                 term.loadAddon(new window.WebglAddon.WebglAddon());
                 term.open(document.getElementById('response'));
