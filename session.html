@@ -8,7 +8,7 @@
       var stompClient;
       var id;
   
-      var console = ""; 
+      var consoleLog = ""; 
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
@@ -30,8 +30,8 @@
                 console = "";
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   var ansi_up = new AnsiUp();
-                  console+=msg.body;
-                  document.getElementById("response").innerHTML=ansi_up.ansi_to_html(console);
+                  consoleLog+=msg.body;
+                  document.getElementById("response").innerHTML=ansi_up.ansi_to_html(consoleLog);
                 });
                 
               });
