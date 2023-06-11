@@ -8,9 +8,10 @@
     <script  type="text/javascript">
       var stompClient;
       var id; 
+      var term = new Terminal();
+      term.open(document.getElementById('response'));
       function connect() {
-          var term = new Terminal();
-          term.open(document.getElementById('response'));
+          
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
           stompClient.connect({}, function (frame) {
@@ -54,6 +55,9 @@
       function sendCTRLC() {
        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
       }
+      function resize(){
+        console.log('Rows: ' + term.rows + ', Columns: ' + term.cols);
+      }
     </script>
     
   </head>
@@ -62,7 +66,7 @@
     <br/>
     <input type="button" onclick="connect();" value="connect"/>
     <br/><br/><br/>
-    <input type="button" onClick="sendCTRLC();" value="CTRLC"/>
+    <input type="button" onClick="sendCTRLC();" value="CTRLC"/> <input type="button" onClick="resize();" value="Resize"/>
     <br/><br/><br/>
     <div id="response" style="height:700px;width:900px;"></div>
     <br/>
