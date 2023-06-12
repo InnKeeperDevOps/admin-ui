@@ -58,8 +58,8 @@
                     case '\u007F': // Backspace (DEL)
                       // Do not delete the prompt
                       if (term._core.buffer.x > 2) {
-                        term.write('\b \b');
                         if (command.length > 0) {
+                          term.write('\b \b');
                           command = command.substr(0, command.length - 1);
                         }
                       }
