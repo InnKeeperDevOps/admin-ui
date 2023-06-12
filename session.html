@@ -35,7 +35,7 @@
                 });
                 term.onData(e => {
                   console.log(e);
-                  console.log("0xF1" + e.toString(16));
+                  console.log("0xF1" + e.charCodeAt(0).toString(16));
                   switch (e) {
                     case '\u0003': // Ctrl+C
                       sendCode('\u0003');
