@@ -44,7 +44,7 @@
                   switch (e) {
                     case '\u0003': // Ctrl+C
                     case '\uF11b':
-                      sendCode(e);
+                      sendCode('\u2190');
                       break;
                     case '\r': // Enter
                       send(command);
