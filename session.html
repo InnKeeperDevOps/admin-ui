@@ -34,11 +34,11 @@
                   disableStdin: false
                 });
                 term.onData(e => {
-                  console.log(e);
-                  console.log("0xF1" + e.charCodeAt(0).toString(16));
+                  const codeTest = "\uF1" + e.charCodeAt(0).toString(16);
                   switch (e) {
                     case '\u0003': // Ctrl+C
-                      sendCode('\u0003');
+                    case '\uF11b'
+                      sendCode(e);
                       break;
                     case '\r': // Enter
                       send(command);
