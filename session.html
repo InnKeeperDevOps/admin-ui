@@ -58,7 +58,6 @@
                     default: // Print all other characters for demo
                       if (e >= String.fromCharCode(0x20) && e <= String.fromCharCode(0x7E) || e >= '\u00a0') {
                         command += e;
-                        console.log(e);
                         term.write(e);
                       }
                   }
@@ -89,6 +88,9 @@
 
       function send(command) {
         stompClient.send("/api/command/session/send", {}, JSON.stringify([id, command]));
+      }
+      function sendCode(code) {
+        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:code}));
       }
       function sendCTRLC() {
         stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
