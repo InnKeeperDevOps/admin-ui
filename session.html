@@ -33,6 +33,9 @@
                   allowProposedApi: true,
                   disableStdin: false
                 });
+                term.onData(e => {
+                  console.log(e);
+                });
                 term.loadAddon(new window.WebglAddon.WebglAddon());
                 term.open(document.getElementById('response'));
                 resize();
