@@ -82,7 +82,7 @@
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
                   if(!nextIsCommand){
                     term.write(msg.body);
-                  }else if(msg.body=="[K"){
+                  }else if(msg.body==""){
                     nextIsCommand=false;
                     if(storedCommand!=""){
                       command=storedCommand;
