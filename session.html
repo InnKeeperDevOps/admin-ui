@@ -42,6 +42,9 @@
                       break;
                     case '\r': // Enter
                       send(command);
+                      for(var i=0;i<command.length;i++){
+                        term.write('\b');
+                      }
                       command = '';
                       break;
                     case '\u007F': // Backspace (DEL)
