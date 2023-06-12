@@ -84,9 +84,13 @@
                     term.write(msg.body);
                   }else if(msg.body=="[K"){
                     nextIsCommand=false;
-                    command=storedCommand;
-                    storedCommand="";
-                    term.write(command);
+                    if(storedCommand!=""){
+                      command=storedCommand;
+                      storedCommand="";
+                      term.write(command);
+                    }else{
+                      term.write(msg.body);
+                    }
                   }else{
                     nextIsCommand=false;
                     command=msg.body;
