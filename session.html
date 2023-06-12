@@ -10,7 +10,7 @@
       var stompClient;
       var id; 
       var term;
-      var command;
+      var command="";
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
