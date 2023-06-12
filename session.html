@@ -41,6 +41,7 @@
                     case '\u0003': // Ctrl+C
                     case '\x1B[C':
                     case '\x1B[D':
+                      sendCode(e);
                       break;
                     case '\x1B[A':
                     case '\x1B[B':
