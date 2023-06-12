@@ -11,6 +11,8 @@
       var id; 
       var term;
       var command="";
+      var storedCommand="";
+      var nextIsCommand = false;
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
@@ -44,6 +46,10 @@
                       break;
                     case '\x1B[A':
                     case '\x1B[B':
+                      nextIsCommand=true;
+                      if(storedCommand==""){
+                        storedCommand=command;
+                      }
                       sendCode(e);
                       break;
                     case '\r': // Enter
@@ -73,7 +79,16 @@
                 term.open(document.getElementById('response'));
                 resize();
                 stompClient.subscribe('/client/command/session/send/'+msg.body, function (msg) {
-                  term.write(msg.body);
+                  if(!nextIsCommand){
+                    term.write(msg.body);
+                  }else if(msg.body=="[K"){
+                    term.write();
+                    command=storedCommand;
+                    storedCommand="";
+                  }else{
+                    command=msg.body;
+                    term.write(command);
+                  }
                   stompClient.send("/api/command/session/send_next", {}, id);
                 });
                 stompClient.send("/api/command/session/send_next", {}, id);
