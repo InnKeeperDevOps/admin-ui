@@ -82,10 +82,12 @@
                   if(!nextIsCommand){
                     term.write(msg.body);
                   }else if(msg.body=="[K"){
-                    term.write();
+                    nextIsCommand=false;
                     command=storedCommand;
                     storedCommand="";
+                    term.write(command);
                   }else{
+                    nextIsCommand=false;
                     command=msg.body;
                     term.write(command);
                   }
