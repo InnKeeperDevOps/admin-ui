@@ -33,6 +33,12 @@
                   allowProposedApi: true,
                   disableStdin: false
                 });
+                term.onKey(e=> {
+                  console.log(e);
+                });
+                term.onBinary(e=> {
+                  console.log(e);
+                });
                 term.onData(e => {
                   console.log("F1" + e.toString(16));
                   switch (e) {
