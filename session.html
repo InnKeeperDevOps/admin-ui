@@ -33,10 +33,7 @@
                   allowProposedApi: true,
                   disableStdin: false
                 });
-                term.onKey(e=> {
-                  console.log(e);
-                });
-                term.onBinary(e=> {
+                term.onCursorMove(e=> {
                   console.log(e);
                 });
                 term.onData(e => {
