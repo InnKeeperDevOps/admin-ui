@@ -34,7 +34,7 @@
                   disableStdin: false
                 });
                 term.onData(e => {
-                  const codeTest = "\uF1" + e.charCodeAt(0).toString(16);
+                  console.log("\uF1" + e.charCodeAt(0).toString(16));
                   switch (e) {
                     case '\u0003': // Ctrl+C
                     case '\uF11b'
