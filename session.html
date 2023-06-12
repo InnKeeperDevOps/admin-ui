@@ -39,10 +39,11 @@
                 term.onData(e => {
                   switch (e) {
                     case '\u0003': // Ctrl+C
-                    case '\x1B[A':
-                    case '\x1B[B':
                     case '\x1B[C':
                     case '\x1B[D':
+                      break;
+                    case '\x1B[A':
+                    case '\x1B[B':
                       sendCode(e);
                       break;
                     case '\r': // Enter
