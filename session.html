@@ -10,6 +10,7 @@
       var stompClient;
       var id; 
       var term;
+      var command;
       function connect() {
           var socket = new SockJS('/stomp');
           stompClient = Stomp.over(socket);
@@ -34,7 +35,30 @@
                   disableStdin: false
                 });
                 term.onData(e => {
-                  console.log(e);
+                  switch (e) {
+                    case '\u0003': // Ctrl+C
+                      sendCode('\u0003');
+                      prompt(term);
+                      break;
+                    case '\r': // Enter
+                      send(command);
+                      command = '';
+                      break;
+                    case '\u007F': // Backspace (DEL)
+                      // Do not delete the prompt
+                      if (term._core.buffer.x > 2) {
+                        term.write('\b \b');
+                        if (command.length > 0) {
+                          command = command.substr(0, command.length - 1);
+                        }
+                      }
+                      break;
+                    default: // Print all other characters for demo
+                      if (e >= String.fromCharCode(0x20) && e <= String.fromCharCode(0x7E) || e >= '\u00a0') {
+                        command += e;
+                        term.write(e);
+                      }
+                  }
                 });
                 term.loadAddon(new window.WebglAddon.WebglAddon());
                 term.open(document.getElementById('response'));
@@ -53,19 +77,22 @@
       }
 
       function disconnect() {
-          if (stompClient !== null) {
-              stompClient.disconnect();
-          }
-          setConnected(false);
-          console.log("Disconnected");
+        if (stompClient !== null) {
+          stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
       }
 
       function send() {
-       stompClient.send("/api/command/session/send", {}, JSON.stringify([id, document.getElementById("body").value]));
+        stompClient.send("/api/command/session/send", {}, JSON.stringify([id, document.getElementById("body").value]));
         document.getElementById("body").value="";
       }
+      function send(command) {
+        stompClient.send("/api/command/session/send", {}, JSON.stringify([id, command]));
+      }
       function sendCTRLC() {
-       stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
+        stompClient.send("/api/command/session/send_code", {}, JSON.stringify({uuid:id, aChar:"\u0003"}));
       }
       function resize(){
         term.resize(document.getElementById('cols').value, document.getElementById('rows').value)
