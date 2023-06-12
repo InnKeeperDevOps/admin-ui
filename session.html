@@ -37,7 +37,6 @@
                   switch (e) {
                     case '\u0003': // Ctrl+C
                       sendCode('\u0003');
-                      prompt(term);
                       break;
                     case '\r': // Enter
                       send(command);
