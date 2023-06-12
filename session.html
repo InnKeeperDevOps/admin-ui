@@ -27,7 +27,6 @@
                 document.getElementById("response").innerHTML=msg.body;
               });
               stompClient.subscribe('/user/client/command/session/create', function (msg) {
-                document.getElementById("body").value="";
                 id = msg.body;
                 term = new Terminal({
                   cursorBlink: true,
@@ -87,10 +86,6 @@
         console.log("Disconnected");
       }
 
-      function send() {
-        stompClient.send("/api/command/session/send", {}, JSON.stringify([id, document.getElementById("body").value]));
-        document.getElementById("body").value="";
-      }
       function send(command) {
         stompClient.send("/api/command/session/send", {}, JSON.stringify([id, command]));
       }
